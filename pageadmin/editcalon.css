@@ -1,0 +1,103 @@
+body{
+    margin: 10px;
+    background-image: url(voting-e1711380786234.jpeg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+    font-family: Oswald, arial;
+}
+
+.judul{
+    justify-content: center;
+    padding: 4px 20px;
+    border: none;
+    color: black;
+    background: hsla(206, 41%, 90%, 0.705);
+    border-radius: 20px;
+    max-width: 500px;
+}
+
+.opsi{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card{
+    margin: 25px;
+    background: rgba(255, 255, 255, 0.847);
+    box-shadow: 3px 3px 6px rgb(21, 28, 66), -3px -3px 6px rgb(9, 31, 106);
+    border: solid 4px;
+    border-radius: 14px;
+    padding: 20px 60px;
+}
+
+.tombol{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 18.7px 55px;
+    border: none;
+    outline: none;
+    color: #FFF;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+    font-family: Oswald, arial;
+}
+
+.tombol::after{
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: hsl(234, 81%, 55%);
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+.tombol::before{
+    content: "";
+    background: linear-gradient(
+        45deg,
+        rgb(22, 180, 237),rgb(59, 16, 214),rgb(72, 185, 205),rgb(75, 47, 233),
+        rgb(79, 45, 189), rgb(74, 182, 209), rgb(93, 28, 130),  rgb(22, 180, 237)
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600%;
+    z-index: -1;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    filter: blur(8px);
+    animation: glowing 20s linear infinite;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+    opacity: 0.7;
+}
+
+@keyframes glowing{
+    0% {background-position: 0 0;}
+    50% {background-position: 400% 0;}
+    100% {background-position: 0 0;}
+}
+
+.tombol:hover::before{
+    opacity: 1;
+}
+
+.tombol:hover::after{
+    background: transparent;
+}
+
+.tombol:active{
+    color: rgb(81, 83, 193);
+    font-weight: bold;
+}
