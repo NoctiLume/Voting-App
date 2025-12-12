@@ -1,39 +1,38 @@
 body{
-    margin: 10px;
-    background-image: url(voting-e1711380786234.jpeg);
+    background-image: url(images/voting-e1711380786234.jpeg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-    overflow: hidden;
+    margin-top: 20px;
     font-family: Oswald, arial;
 }
 
-.judul{
-    justify-content: center;
-    padding: 4px 20px;
-    border: 3px solid;
-    color: black;
-    background: hsla(206, 41%, 90%, 0.705);
-    border-radius: 20px;
-    max-width: 500px;
-}
-
-.opsi{
+.card{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-content: center;
+    border: 4px solid;
+    box-shadow: 3px 3px 6px rgb(21, 28, 66), -3px -3px 6px rgb(9, 31, 106);
+    border-radius: 16px;
+    background-color: white;
 }
 
-.card{
-    margin: 25px;
-    background: rgba(255, 255, 255, 0.847);
-    box-shadow: 3px 3px 6px rgb(21, 28, 66), -3px -3px 6px rgb(9, 31, 106);
-    border: solid 4px;
-    border-radius: 14px;
-    padding: 20px 60px;
+.makasih{
+    display: flex;
+    align-content: center;
+    margin: 15px;
+}
+
+.wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .tombol{

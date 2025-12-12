@@ -16,7 +16,15 @@
     padding: 25px 10px;
 }
 
+#card-subjudul{
+    margin: 20px;
+    border: 3px solid;
+    border-radius: 13px;
+    background-color: hsla(0, 0%, 89%, 0.662);
+}
+
 #sub-judul{
+    margin: 12px;
     text-align: center;
     margin-bottom: 20px
 }
@@ -82,7 +90,7 @@
 }
 
 #button1{
-    padding: 18.7px 55px;
+    padding: 18px 55px;
     border: none;
     outline: none;
     color: #FFF;
@@ -95,7 +103,19 @@
 }
 
 #button2{
-    padding: 20px 40px;
+    padding: 18px 40px;
+    border: none;
+    outline: none;
+    color: #FFF;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+    font-family: Oswald, arial;
+}
+
+#button3{
+    padding: 18px 55px;
     border: none;
     outline: none;
     color: #FFF;
