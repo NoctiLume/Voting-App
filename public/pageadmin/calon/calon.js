@@ -106,4 +106,3 @@ window.onload = () => {
     setTimeout(() => overlay.remove(), 300);
   }
 };
-

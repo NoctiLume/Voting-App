@@ -30,6 +30,18 @@
         "function": "deleteCandidate"
       },
       {
+        "source": "/submitVote",
+        "function": "submitVote"
+      },
+      {
+        "source": "/getVotes",
+        "function": "getVotes"
+      },
+      {
+        "source": "/resetVotes",
+        "function": "resetVotes"
+      },
+      {
         "source": "/pageadmin/**",
         "function": "checkAdmin"
       }

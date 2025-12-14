@@ -90,47 +90,54 @@
         loadSuaraData();
       };
 
-      function loadSuaraData() {
-        // Load data suara
-        let suaraData = localStorage.getItem("votingData");
-        let votes = suaraData
-          ? JSON.parse(suaraData)
-          : { calon1: 0, calon2: 0, calon3: 0, calon4: 0 };
+      async function loadSuaraData() {
+        try {
+          const response = await fetch('/getVotes');
+          const votes = await response.json();
 
-        // Update tampilan suara
-        document.getElementById("suara1").textContent = votes.calon1;
-        document.getElementById("suara2").textContent = votes.calon2;
-        document.getElementById("suara3").textContent = votes.calon3;
-        document.getElementById("suara4").textContent = votes.calon4;
+          // Update tampilan suara
+          document.getElementById("suara1").textContent = votes.calon1 || 0;
+          document.getElementById("suara2").textContent = votes.calon2 || 0;
+          document.getElementById("suara3").textContent = votes.calon3 || 0;
+          document.getElementById("suara4").textContent = votes.calon4 || 0;
+
+        } catch (error) {
+          console.error('Error fetching votes:', error);
+        }
 
         // Load nama calon dari data edit
         for (let i = 1; i <= 4; i++) {
-          const calonData = localStorage.getItem("calon" + i);
-          if (calonData) {
-            const data = JSON.parse(calonData);
+          try {
+            const response = await fetch(`/getCandidate?id=calon${i}`);
+            const data = await response.json();
             if (data.nama) {
-              document.getElementById("nama-calon" + i).textContent = data.nama;
+                document.getElementById(`nama-calon${i}`).textContent = data.nama;
             }
+          } catch (error) {
+            console.error(`Error fetching candidate name for calon${i}:`, error);
           }
         }
       }
 
-      function resetData() {
+      async function resetData() {
         if (
           confirm(
             "⚠️ Apakah Anda yakin ingin mereset semua data suara?\n\nSemua data suara akan dikembalikan ke 0!"
           )
         ) {
-          // Reset voting data
-          localStorage.setItem(
-            "votingData",
-            JSON.stringify({ calon1: 0, calon2: 0, calon3: 0, calon4: 0 })
-          );
-
-          // Reload data
-          loadSuaraData();
-
-          alert("✅ Data suara berhasil direset!");
+          try {
+            const response = await fetch('/resetVotes', { method: 'POST' });
+            if(response.ok) {
+              // Reload data
+              loadSuaraData();
+              alert("✅ Data suara berhasil direset!");
+            } else {
+              alert("Gagal mereset data suara.");
+            }
+          } catch (error) {
+            console.error('Error resetting votes:', error);
+            alert("Terjadi kesalahan saat mereset data.");
+          }
         }
       }
     </script>

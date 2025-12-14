@@ -174,3 +174,78 @@ exports.deleteCandidate = functions.https.onRequest((req, res) => {
   });
 });
 
+exports.submitVote = functions.https.onRequest(async (req, res) => {
+  // Allow CORS for this function
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'POST');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    // Stop preflight requests here
+    return res.status(204).send('');
+  }
+
+  if (req.method !== "POST") {
+    return res.status(405).send("Method not allowed");
+  }
+
+  const { calonId } = req.body;
+
+  if (!calonId || !['calon1', 'calon2', 'calon3', 'calon4'].includes(calonId)) {
+    return res.status(400).send("Invalid calon");
+  }
+
+  const voteRef = admin.firestore().collection("votes").doc(calonId);
+
+  try {
+    await admin.firestore().runTransaction(async (transaction) => {
+      const doc = await transaction.get(voteRef);
+      if (!doc.exists) {
+        transaction.set(voteRef, { count: 1 });
+      } else {
+        const newCount = doc.data().count + 1;
+        transaction.update(voteRef, { count: newCount });
+      }
+    });
+    return res.status(200).send("Vote submitted");
+  } catch (e) {
+    console.error("Transaction failure:", e);
+    return res.status(500).send("Error submitting vote");
+  }
+});
+
+
+exports.getVotes = functions.https.onRequest(async (req, res) => {
+  // Allow CORS for this function
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const snapshot = await admin.firestore().collection('votes').get();
+  const votes = { calon1: 0, calon2: 0, calon3: 0, calon4: 0 };
+  snapshot.forEach(doc => {
+    votes[doc.id] = doc.data().count;
+  });
+  res.set('Cache-Control', 'no-store');
+  res.json(votes);
+});
+
+exports.resetVotes = functions.https.onRequest(async (req, res) => {
+  cookieParser()(req, res, async () => {
+    if (req.cookies.admin !== "true") {
+      return res.status(403).send("Forbidden");
+    }
+
+    if (req.method !== "POST") {
+      return res.status(405).send("Method not allowed");
+    }
+
+    const batch = admin.firestore().batch();
+    const snapshot = await admin.firestore().collection("votes").get();
+    snapshot.docs.forEach(doc => {
+      batch.delete(doc.ref);
+    });
+
+    await batch.commit();
+
+    res.send("Votes reset");
+  });
+});

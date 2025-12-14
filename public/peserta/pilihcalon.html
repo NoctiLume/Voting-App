@@ -69,27 +69,35 @@
         }
       };
 
-      function konfirmasiPilihan() {
+      async function konfirmasiPilihan() {
         const pilihanSementara = sessionStorage.getItem("pilihanSementara");
 
         if (pilihanSementara) {
-          // Ambil data suara dari localStorage
-          let suaraData = localStorage.getItem("votingData");
-          let votes = suaraData
-            ? JSON.parse(suaraData)
-            : { calon1: 0, calon2: 0, calon3: 0, calon4: 0 };
+          const calonId = "calon" + pilihanSementara;
 
-          // Tambah suara
-          votes["calon" + pilihanSementara]++;
+          try {
+            const response = await fetch('/submitVote', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ calonId: calonId }),
+            });
 
-          // Simpan kembali ke localStorage
-          localStorage.setItem("votingData", JSON.stringify(votes));
-
-          // Hapus pilihan sementara
-          sessionStorage.removeItem("pilihanSementara");
-
-          // Redirect ke terima kasih
-          window.location.href = "terimakasih.html";
+            if (response.ok) {
+              // Hapus pilihan sementara
+              sessionStorage.removeItem("pilihanSementara");
+              // Redirect ke terima kasih
+              window.location.href = "terimakasih.html";
+            } else {
+              // Handle error
+              alert("Gagal menyimpan pilihan. Silakan coba lagi.");
+              console.error('Error submitting vote:', await response.text());
+            }
+          } catch (error) {
+            alert("Terjadi kesalahan. Silakan periksa koneksi internet Anda.");
+            console.error('Network error:', error);
+          }
         }
       }
     </script>
