@@ -34,22 +34,14 @@
         <p class="subtitle">Masukkan password untuk melanjutkan</p>
       </div>
 
-      <form action="pageadmin.html" method="post">
+      <form id="loginForm">
         <div class="input-group">
           <span class="input-icon">🔑</span>
           <input
-            type="text"
-            name="username"
-            id="username"
-            required
-            autocomplete="username"
-            style="display: none"
-          />
-          <input
             type="password"
             name="password"
-            required
             id="password"
+            required
             autocomplete="current-password"
           />
           <label for="password">Password</label>
@@ -64,5 +56,6 @@
         <a href="../index.html">← Kembali ke Menu Utama</a>
       </div>
     </div>
+    <script src="admin.js"></script>
   </body>
 </html>
