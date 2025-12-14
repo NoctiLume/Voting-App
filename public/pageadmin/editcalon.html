@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Calon</title>
+    <link rel="stylesheet" href="editcalon.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="../logo.png" />
+  </head>
+  <body>
+    <!-- Page transition overlay -->
+    <div class="page-overlay"></div>
+
+    <div class="bg-circle"></div>
+    <div class="bg-circle2"></div>
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+
+    <div class="judul">
+      <h1>✏️ Silahkan Pilih Calon Yang Ingin Diedit</h1>
+    </div>
+
+    <div class="badan">
+      <div class="card">
+        <div class="opsi">
+          <a href="calon/calon1.html">
+            <button class="tombol">
+              <span class="number">1</span>
+              <span class="text">Edit Calon 1</span>
+              <span class="arrow">→</span>
+            </button>
+          </a>
+
+          <a href="calon/calon2.html">
+            <button class="tombol">
+              <span class="number">2</span>
+              <span class="text">Edit Calon 2</span>
+              <span class="arrow">→</span>
+            </button>
+          </a>
+
+          <a href="calon/calon3.html">
+            <button class="tombol">
+              <span class="number">3</span>
+              <span class="text">Edit Calon 3</span>
+              <span class="arrow">→</span>
+            </button>
+          </a>
+
+          <a href="calon/calon4.html">
+            <button class="tombol">
+              <span class="number">4</span>
+              <span class="text">Edit Calon 4</span>
+              <span class="arrow">→</span>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Fade out overlay saat halaman load
+      window.onload = function () {
+        setTimeout(() => {
+          document.querySelector(".page-overlay").style.opacity = "0";
+        }, 100);
+      };
+    </script>
+  </body>
+</html>

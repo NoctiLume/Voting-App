@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="logo.png" />
+  </head>
+  <body>
+    <!-- Page transition overlay -->
+    <div class="page-overlay"></div>
+
+    <div class="bg-circle"></div>
+    <div class="bg-circle2"></div>
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+
+    <div id="judul">
+      <h1>
+        <img src="logo.png" height="85px" alt="Logo" class="logo-img" />
+        Selamat Datang di Aplikasi Voting Kelompok VI
+      </h1>
+      <h3 class="slogan">Transparan • Cepat • Mudah Digunakan</h3>
+    </div>
+
+    <main id="badan">
+      <div class="card">
+        <div class="wrap">
+          <a href="admin/admin.html">
+            <button class="tombol" id="button1">
+              <span class="icon-button">🔑</span>
+              <span class="text-button">Masuk Sebagai Admin</span>
+              <span class="arrow-button">→</span>
+            </button>
+          </a>
+        </div>
+
+        <div class="wrap">
+          <a href="peserta/peserta.html">
+            <button class="tombol" id="button2">
+              <span class="icon-button">👨‍💻</span>
+              <span class="text-button">Masuk Sebagai Peserta</span>
+              <span class="arrow-button">→</span>
+            </button>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer id="kaki">
+      <p>
+        © 2025 Aplikasi Voting Kelompok VI. Semua hak cipta dilindungi. Dibuat
+        dengan dedikasi untuk memberikan pengalaman voting yang transparan,
+        aman, dan mudah digunakan.
+      </p>
+    </footer>
+
+    <script>
+      // Fade out overlay saat halaman load
+      window.onload = function () {
+        setTimeout(() => {
+          document.querySelector(".page-overlay").style.opacity = "0";
+        }, 100);
+      };
+    </script>
+  </body>
+</html>

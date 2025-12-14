@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Total Suara</title>
+    <link rel="stylesheet" href="suara.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="../logo.png" />
+  </head>
+  <body>
+    <!-- Page transition overlay -->
+    <div class="page-overlay"></div>
+
+    <div class="bg-circle"></div>
+    <div class="bg-circle2"></div>
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+
+    <div class="judul">
+      <h1>📊 Total Suara Pemilihan</h1>
+    </div>
+
+    <main class="badan">
+      <div class="card">
+        <div class="card2">
+          <div class="isi">
+            <div class="icon">🏆</div>
+            <h2 id="nama-calon1">Calon 1</h2>
+            <p class="suara" id="suara1">0</p>
+            <div class="label">Suara</div>
+          </div>
+        </div>
+
+        <div class="card2">
+          <div class="isi">
+            <div class="icon">🏆</div>
+            <h2 id="nama-calon2">Calon 2</h2>
+            <p class="suara" id="suara2">0</p>
+            <div class="label">Suara</div>
+          </div>
+        </div>
+
+        <div class="card2">
+          <div class="isi">
+            <div class="icon">🏆</div>
+            <h2 id="nama-calon3">Calon 3</h2>
+            <p class="suara" id="suara3">0</p>
+            <div class="label">Suara</div>
+          </div>
+        </div>
+
+        <div class="card2">
+          <div class="isi">
+            <div class="icon">🏆</div>
+            <h2 id="nama-calon4">Calon 4</h2>
+            <p class="suara" id="suara4">0</p>
+            <div class="label">Suara</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tombol Reset Data -->
+      <div class="reset-wrap">
+        <button class="tombol-reset" onclick="resetData()">
+          <span class="icon-reset">🗑️</span>
+          <span>Reset Semua Data Suara</span>
+        </button>
+      </div>
+    </main>
+
+    <script>
+      // Fade out overlay saat halaman load
+      window.onload = function () {
+        setTimeout(() => {
+          document.querySelector(".page-overlay").style.opacity = "0";
+        }, 100);
+
+        loadSuaraData();
+      };
+
+      function loadSuaraData() {
+        // Load data suara
+        let suaraData = localStorage.getItem("votingData");
+        let votes = suaraData
+          ? JSON.parse(suaraData)
+          : { calon1: 0, calon2: 0, calon3: 0, calon4: 0 };
+
+        // Update tampilan suara
+        document.getElementById("suara1").textContent = votes.calon1;
+        document.getElementById("suara2").textContent = votes.calon2;
+        document.getElementById("suara3").textContent = votes.calon3;
+        document.getElementById("suara4").textContent = votes.calon4;
+
+        // Load nama calon dari data edit
+        for (let i = 1; i <= 4; i++) {
+          const calonData = localStorage.getItem("calon" + i);
+          if (calonData) {
+            const data = JSON.parse(calonData);
+            if (data.nama) {
+              document.getElementById("nama-calon" + i).textContent = data.nama;
+            }
+          }
+        }
+      }
+
+      function resetData() {
+        if (
+          confirm(
+            "⚠️ Apakah Anda yakin ingin mereset semua data suara?\n\nSemua data suara akan dikembalikan ke 0!"
+          )
+        ) {
+          // Reset voting data
+          localStorage.setItem(
+            "votingData",
+            JSON.stringify({ calon1: 0, calon2: 0, calon3: 0, calon4: 0 })
+          );
+
+          // Reload data
+          loadSuaraData();
+
+          alert("✅ Data suara berhasil direset!");
+        }
+      }
+    </script>
+  </body>
+</html>

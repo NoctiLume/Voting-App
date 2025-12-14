@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konfirmasi Pilihan</title>
+    <link rel="stylesheet" href="pilihcalon.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="../logo.png" />
+  </head>
+  <body>
+    <div class="bg-circle"></div>
+    <div class="bg-circle2"></div>
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+
+    <div class="judul">
+      <h1>⚠️ Konfirmasi Pilihan Anda</h1>
+    </div>
+
+    <div class="container">
+      <div class="yakinenggak">
+        <div class="icon-wrapper">
+          <span class="question-icon">❓</span>
+        </div>
+        <h2 id="konfirmasi-text">Apakah Anda Yakin Ingin Memilih Calon Ini?</h2>
+        <p class="subtitle">
+          Pilihan Anda akan tersimpan dan tidak dapat diubah
+        </p>
+
+        <div class="tombol-wrap">
+          <a href="#" onclick="konfirmasiPilihan(); return false;">
+            <button class="tombol tombol-ya">
+              <span class="icon">✓</span>
+              <span>Ya, Saya Yakin</span>
+            </button>
+          </a>
+          <a href="peserta.html">
+            <button class="tombol tombol-tidak">
+              <span class="icon">✕</span>
+              <span>Tidak, Kembali</span>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.onload = function () {
+        const pilihanSementara = sessionStorage.getItem("pilihanSementara");
+        if (!pilihanSementara) {
+          // Jika tidak ada pilihan, redirect kembali
+          window.location.href = "peserta.html";
+        } else {
+          // Update text konfirmasi
+          document.getElementById("konfirmasi-text").textContent =
+            "Apakah Anda Yakin Ingin Memilih Calon " + pilihanSementara + "?";
+        }
+      };
+
+      function konfirmasiPilihan() {
+        const pilihanSementara = sessionStorage.getItem("pilihanSementara");
+
+        if (pilihanSementara) {
+          // Ambil data suara dari localStorage
+          let suaraData = localStorage.getItem("votingData");
+          let votes = suaraData
+            ? JSON.parse(suaraData)
+            : { calon1: 0, calon2: 0, calon3: 0, calon4: 0 };
+
+          // Tambah suara
+          votes["calon" + pilihanSementara]++;
+
+          // Simpan kembali ke localStorage
+          localStorage.setItem("votingData", JSON.stringify(votes));
+
+          // Hapus pilihan sementara
+          sessionStorage.removeItem("pilihanSementara");
+
+          // Redirect ke terima kasih
+          window.location.href = "terimakasih.html";
+        }
+      }
+    </script>
+  </body>
+</html>

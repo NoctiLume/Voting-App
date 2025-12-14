@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Calon 2</title>
+    <link rel="stylesheet" href="calon.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="../../logo.png" />
+  </head>
+  <body>
+    <!-- Overlay fade in -->
+    <div class="page-overlay"></div>
+
+    <div class="card">
+      <div class="form">
+        <h2>Edit Calon 2</h2>
+        <form id="isi" onsubmit="return saveData(event)">
+          <label class="file-label tombol-animated" for="foto">
+            📷 Pilih Foto Calon
+          </label>
+
+          <input id="foto" type="file" accept="image/*" hidden />
+
+          <span id="file-name">Belum ada file dipilih</span>
+
+          <div id="preview-container" style="display: none; margin: 15px 0">
+            <img
+              id="preview-image"
+              style="
+                max-width: 100%;
+                border-radius: 10px;
+                border: 2px solid #3f6cff;
+              "
+            />
+          </div>
+
+          <label for="nama" class="visi-misi-label"> 👤 Nama Calon </label>
+          <input
+            type="text"
+            id="nama"
+            placeholder="Masukkan nama calon..."
+            required
+            style="
+              width: 100%;
+              padding: 12px;
+              background: rgba(255, 255, 255, 0.9);
+              border: 2px solid #3f6cff;
+              border-radius: 10px;
+              color: #333;
+              outline: none;
+              font-size: 15px;
+              font-family: 'Poppins', sans-serif;
+              margin-bottom: 15px;
+            "
+          />
+
+          <label for="visi-misi" class="visi-misi-label">
+            📋 Visi & Misi
+          </label>
+          <textarea
+            id="visi-misi"
+            rows="12"
+            cols="25"
+            placeholder="Tuliskan visi dan misi calon..."
+            required
+          ></textarea>
+
+          <div class="button-group">
+            <input
+              class="tombol tombol-reset"
+              type="button"
+              value="Reset Form"
+              onclick="resetFormOnly()"
+            />
+            <input
+              class="tombol tombol-delete"
+              type="button"
+              value="Hapus Data"
+              onclick="deleteData()"
+            />
+          </div>
+          <input class="tombol tombol-submit" type="submit" value="Simpan" />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const calonId = "calon2";
+
+      // Load data saat halaman dibuka
+      window.onload = function () {
+        loadData();
+        // Fade out overlay
+        setTimeout(() => {
+          document.querySelector(".page-overlay").style.opacity = "0";
+        }, 100);
+      };
+
+      // Preview foto
+      const inputFoto = document.getElementById("foto");
+      const fileName = document.getElementById("file-name");
+      const previewContainer = document.getElementById("preview-container");
+      const previewImage = document.getElementById("preview-image");
+
+      inputFoto.addEventListener("change", function () {
+        if (this.files && this.files.length > 0) {
+          const file = this.files[0];
+          fileName.textContent = "✔ " + file.name;
+
+          // Preview image
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewContainer.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        } else {
+          fileName.textContent = "Belum ada file dipilih";
+          previewContainer.style.display = "none";
+        }
+      });
+
+      // Load data dari localStorage
+      function loadData() {
+        const saved = localStorage.getItem(calonId);
+        if (saved) {
+          const data = JSON.parse(saved);
+          document.getElementById("nama").value = data.nama || "";
+          document.getElementById("visi-misi").value = data.visiMisi || "";
+
+          if (data.foto) {
+            previewImage.src = data.foto;
+            previewContainer.style.display = "block";
+            fileName.textContent = "✔ Foto tersimpan";
+          }
+        }
+      }
+
+      // Simpan data ke localStorage
+      function saveData(event) {
+        event.preventDefault();
+
+        const nama = document.getElementById("nama").value;
+        const visiMisi = document.getElementById("visi-misi").value;
+        const foto = previewImage.src || "";
+
+        const data = {
+          nama: nama,
+          visiMisi: visiMisi,
+          foto: foto,
+        };
+
+        localStorage.setItem(calonId, JSON.stringify(data));
+
+        alert("✅ Data berhasil disimpan!");
+        return false;
+      }
+
+      // Reset form saja (tidak hapus localStorage)
+      function resetFormOnly() {
+        document.getElementById("isi").reset();
+        document.getElementById("foto").value = "";
+        previewContainer.style.display = "none";
+        fileName.textContent = "Belum ada file dipilih";
+        previewImage.src = "";
+
+        // Load kembali data tersimpan
+        setTimeout(loadData, 100);
+      }
+
+      // Hapus data dari localStorage
+      function deleteData() {
+        if (
+          confirm(
+            "⚠️ Apakah Anda yakin ingin menghapus semua data calon ini?\n\nData yang tersimpan akan hilang permanen!"
+          )
+        ) {
+          // Hapus dari localStorage
+          localStorage.removeItem(calonId);
+
+          // Reset form
+          document.getElementById("isi").reset();
+          document.getElementById("foto").value = "";
+          previewContainer.style.display = "none";
+          fileName.textContent = "Belum ada file dipilih";
+          previewImage.src = "";
+
+          alert("✅ Data berhasil dihapus dari penyimpanan!");
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laman Peserta</title>
+    <link rel="stylesheet" href="peserta.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="../logo.png" />
+  </head>
+  <body>
+    <div class="bg-circle"></div>
+    <div class="bg-circle2"></div>
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+
+    <div class="judul">
+      <h1>🗳️ Pilih Salah Satu Calon</h1>
+      <p class="subtitle">Pilihan Anda sangat berarti untuk masa depan</p>
+    </div>
+
+    <div class="wrap">
+      <div class="grid">
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="photo" id="photo1">
+            <span class="placeholder">📷<br />Foto Calon 1</span>
+          </div>
+          <div class="body">
+            <div class="nama" id="nama1">Nama Calon 1</div>
+            <div class="visi" id="visi1">
+              <strong>Visi & Misi:</strong><br />
+              Belum ada visi dan misi yang diinput.
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <a href="#" onclick="pilihCalon(1); return false;">
+              <button class="tbl">
+                <span>Pilih Calon 1</span>
+                <span class="check">✓</span>
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="photo" id="photo2">
+            <span class="placeholder">📷<br />Foto Calon 2</span>
+          </div>
+          <div class="body">
+            <div class="nama" id="nama2">Nama Calon 2</div>
+            <div class="visi" id="visi2">
+              <strong>Visi & Misi:</strong><br />
+              Belum ada visi dan misi yang diinput.
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <a href="#" onclick="pilihCalon(2); return false;">
+              <button class="tbl">
+                <span>Pilih Calon 2</span>
+                <span class="check">✓</span>
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="photo" id="photo3">
+            <span class="placeholder">📷<br />Foto Calon 3</span>
+          </div>
+          <div class="body">
+            <div class="nama" id="nama3">Nama Calon 3</div>
+            <div class="visi" id="visi3">
+              <strong>Visi & Misi:</strong><br />
+              Belum ada visi dan misi yang diinput.
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <a href="#" onclick="pilihCalon(3); return false;">
+              <button class="tbl">
+                <span>Pilih Calon 3</span>
+                <span class="check">✓</span>
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+          <div class="photo" id="photo4">
+            <span class="placeholder">📷<br />Foto Calon 4</span>
+          </div>
+          <div class="body">
+            <div class="nama" id="nama4">Nama Calon 4</div>
+            <div class="visi" id="visi4">
+              <strong>Visi & Misi:</strong><br />
+              Belum ada visi dan misi yang diinput.
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <a href="#" onclick="pilihCalon(4); return false;">
+              <button class="tbl">
+                <span>Pilih Calon 4</span>
+                <span class="check">✓</span>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="back-button-wrap">
+      <a href="../index.html">
+        <button class="tbl-back">
+          <span class="arrow-back">←</span>
+          <span>Kembali ke Menu Utama</span>
+        </button>
+      </a>
+    </div>
+
+    <script>
+      // Load data semua calon saat halaman dibuka
+      window.onload = function () {
+        loadCalonData("calon1", 1);
+        loadCalonData("calon2", 2);
+        loadCalonData("calon3", 3);
+        loadCalonData("calon4", 4);
+      };
+
+      function loadCalonData(calonId, number) {
+        const saved = localStorage.getItem(calonId);
+        if (saved) {
+          const data = JSON.parse(saved);
+
+          // Update nama
+          if (data.nama) {
+            document.getElementById("nama" + number).textContent = data.nama;
+          }
+
+          // Update visi misi
+          if (data.visiMisi) {
+            document.getElementById("visi" + number).innerHTML =
+              "<strong>Visi & Misi:</strong><br>" + data.visiMisi;
+          }
+
+          // Update foto
+          if (data.foto) {
+            const photoDiv = document.getElementById("photo" + number);
+            photoDiv.innerHTML =
+              '<img src="' +
+              data.foto +
+              '" alt="' +
+              data.nama +
+              '" style="width: 100%; height: 100%; object-fit: cover;">';
+          }
+        }
+      }
+
+      // Fungsi untuk memilih calon
+      function pilihCalon(nomorCalon) {
+        // Simpan pilihan ke sessionStorage untuk konfirmasi
+        sessionStorage.setItem("pilihanSementara", nomorCalon);
+        // Redirect ke halaman konfirmasi
+        window.location.href = "pilihcalon.html";
+      }
+    </script>
+  </body>
+</html>

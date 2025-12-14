@@ -1,0 +1,355 @@
+* {
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Oswald, arial;
+  align-content: center;
+}
+
+/* Page Transition Overlay */
+.page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #060c2d, #384ba9);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.judul {
+  color: white;
+  background: linear-gradient(90deg, #060c2d, #384ba9);
+  text-align: center;
+  box-shadow: 3px 3px 6px rgb(10, 5, 69), -3px -3px 6px rgb(7, 96, 165);
+  text-shadow: 3px 2px 6px rgb(41, 165, 193), -3px -2px 6px rgb(9, 34, 124);
+  border: none;
+  padding: 25px 10px;
+  animation: slideDown 0.6s ease 0.3s backwards;
+}
+
+.judul h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bg-circle {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  filter: blur(40px);
+  top: 10%;
+  left: 10%;
+  z-index: 0;
+}
+
+.bg-circle2 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  filter: blur(35px);
+  bottom: 5%;
+  right: 5%;
+  z-index: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-image: url(voting-e1711380786234.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.badan {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffffcc;
+  backdrop-filter: blur(5px);
+  padding: 50px 60px;
+  width: 500px;
+  max-width: 90%;
+  border: solid 4px;
+  border-radius: 20px;
+  box-shadow: 3px 3px 6px rgb(21, 28, 66), -3px -3px 6px rgb(9, 31, 106);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  animation: cardSlideIn 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s
+    backwards;
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.opsi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+a {
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Staggered animation untuk setiap tombol */
+.opsi a:nth-child(1) .tombol {
+  animation: fadeInRight 0.6s ease 0.7s backwards;
+}
+
+.opsi a:nth-child(2) .tombol {
+  animation: fadeInRight 0.6s ease 0.9s backwards;
+}
+
+.opsi a:nth-child(3) .tombol {
+  animation: fadeInRight 0.6s ease 1.1s backwards;
+}
+
+.opsi a:nth-child(4) .tombol {
+  animation: fadeInRight 0.6s ease 1.3s backwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.tombol {
+  width: 100%;
+  padding: 18px 30px;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+  font-family: Oswald, arial;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.tombol .number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.tombol .text {
+  flex: 1;
+  text-align: center;
+}
+
+.tombol .arrow {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.tombol:hover .arrow {
+  transform: translateX(8px);
+}
+
+.tombol:hover .number {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1) rotate(360deg);
+}
+
+.tombol::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: hsl(234, 81%, 55%);
+  left: 0;
+  top: 0;
+  border-radius: 12px;
+}
+
+.tombol::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    rgb(22, 180, 237),
+    rgb(59, 16, 214),
+    rgb(72, 185, 205),
+    rgb(75, 47, 233),
+    rgb(79, 45, 189),
+    rgb(74, 182, 209),
+    rgb(93, 28, 130),
+    rgb(22, 180, 237)
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 12px;
+  opacity: 0.7;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.tombol:hover::before {
+  opacity: 1;
+}
+
+.tombol:hover::after {
+  background: transparent;
+}
+
+.tombol:hover {
+  transform: scale(1.05);
+}
+
+.tombol:active {
+  color: rgb(81, 83, 193);
+  font-weight: bold;
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .judul h1 {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 40px 30px;
+    width: 95%;
+  }
+
+  .tombol {
+    padding: 16px 25px;
+    font-size: 16px;
+  }
+
+  .tombol .number {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: float 3s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+}
+
+.p1 {
+  top: 20%;
+  left: 15%;
+  animation-duration: 4s;
+}
+.p2 {
+  top: 60%;
+  left: 25%;
+  animation-duration: 5s;
+}
+.p3 {
+  top: 40%;
+  left: 80%;
+  animation-duration: 3.5s;
+}
+.p4 {
+  top: 75%;
+  left: 60%;
+  animation-duration: 6s;
+}

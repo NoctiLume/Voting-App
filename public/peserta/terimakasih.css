@@ -1,0 +1,311 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Oswald, arial;
+}
+
+body {
+  min-height: 100vh;
+  background-image: url(images/voting-e1711380786234.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  padding: 40px 20px;
+}
+
+.bg-circle {
+  position: fixed;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  filter: blur(40px);
+  top: 10%;
+  left: 10%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-circle2 {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  filter: blur(35px);
+  bottom: 10%;
+  right: 5%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: float 3s ease-in-out infinite;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+}
+
+.p1 {
+  top: 20%;
+  left: 15%;
+  animation-duration: 4s;
+}
+.p2 {
+  top: 60%;
+  left: 25%;
+  animation-duration: 5s;
+}
+.p3 {
+  top: 40%;
+  left: 80%;
+  animation-duration: 3.5s;
+}
+.p4 {
+  top: 75%;
+  left: 60%;
+  animation-duration: 6s;
+}
+
+/* Confetti Animation */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #ffd700;
+  top: -10%;
+  z-index: 2;
+  animation: confetti-fall 3s linear infinite;
+  pointer-events: none;
+}
+
+.confetti:nth-child(1) {
+  left: 10%;
+  background: #ff6b6b;
+  animation-delay: 0s;
+}
+.confetti:nth-child(2) {
+  left: 20%;
+  background: #4ecdc4;
+  animation-delay: 0.3s;
+}
+.confetti:nth-child(3) {
+  left: 30%;
+  background: #ffd93d;
+  animation-delay: 0.6s;
+}
+.confetti:nth-child(4) {
+  left: 40%;
+  background: #6bcf7f;
+  animation-delay: 0.9s;
+}
+.confetti:nth-child(5) {
+  left: 50%;
+  background: #ff6b9d;
+  animation-delay: 1.2s;
+}
+.confetti:nth-child(6) {
+  left: 60%;
+  background: #c792ea;
+  animation-delay: 1.5s;
+}
+.confetti:nth-child(7) {
+  left: 70%;
+  background: #ffaa5a;
+  animation-delay: 1.8s;
+}
+.confetti:nth-child(8) {
+  left: 80%;
+  background: #5adbff;
+  animation-delay: 2.1s;
+}
+.confetti:nth-child(9) {
+  left: 90%;
+  background: #ffec5a;
+  animation-delay: 2.4s;
+}
+.confetti:nth-child(10) {
+  left: 95%;
+  background: #ff5ac4;
+  animation-delay: 2.7s;
+}
+
+@keyframes confetti-fall {
+  0% {
+    top: -10%;
+    transform: translateX(0) rotateZ(0deg);
+    opacity: 1;
+  }
+  100% {
+    top: 110%;
+    transform: translateX(100px) rotateZ(720deg);
+    opacity: 0;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 4px solid rgba(255, 255, 255, 0.7);
+  border-radius: 30px;
+  box-shadow: 4px 4px 20px rgba(21, 28, 66, 0.3),
+    -4px -4px 20px rgba(255, 255, 255, 0.5);
+  padding: 60px 50px;
+  max-width: 650px;
+  width: 90%;
+  text-align: center;
+  animation: slideInScale 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes slideInScale {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.icon-wrapper {
+  margin-bottom: 25px;
+}
+
+.checkmark {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  border-radius: 50%;
+  color: white;
+  font-size: 60px;
+  line-height: 100px;
+  box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+  animation: checkmarkPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s
+    backwards;
+}
+
+@keyframes checkmarkPop {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.makasih {
+  color: #060c2d;
+  font-size: 36px;
+  margin-bottom: 15px;
+  line-height: 1.3;
+  animation: fadeInUp 0.6s ease 0.4s backwards;
+}
+
+.subtitle {
+  color: #28a745;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-family: "Poppins", sans-serif;
+  animation: fadeInUp 0.6s ease 0.5s backwards;
+}
+
+.message {
+  color: #555;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  margin-bottom: 0;
+  animation: fadeInUp 0.6s ease 0.6s backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    padding: 40px 30px;
+  }
+
+  .makasih {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+
+  .checkmark {
+    width: 80px;
+    height: 80px;
+    font-size: 50px;
+    line-height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 30px 20px;
+  }
+
+  .makasih {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+}
