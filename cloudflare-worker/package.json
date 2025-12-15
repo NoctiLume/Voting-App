@@ -1,0 +1,23 @@
+{
+  "name": "voting-app-cloudflare-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker backend for Voting App",
+  "main": "src/index-d1.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:prod": "wrangler deploy --env production",
+    "migrate": "wrangler d1 migrations apply voting-app-db",
+    "db:create": "wrangler d1 create voting-app-db"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "voting"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^4.54.0"
+  }
+}

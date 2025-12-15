@@ -1,0 +1,27 @@
+name = "voting-app-api"
+main = "src/index-d1.js"
+compatibility_date = "2024-01-01"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "voting-app-db"
+database_id = "72be0f26-39b5-4024-9953-ad6e0d8ff7c4"
+
+# R2 Bucket binding for image storage (optional - comment out if R2 not available)
+# [[r2_buckets]]
+# binding = "R2_BUCKET"
+# bucket_name = "voting-app-images"
+
+# Environment variables (set these in Cloudflare Dashboard or via wrangler secret put)
+# [vars]
+# ADMIN_PASSWORD = "your-admin-password-here"  # Or use wrangler secret put ADMIN_PASSWORD
+
+# Uncomment for production environment
+# [env.production]
+# name = "voting-app-api-production"
+# [[env.production.d1_databases]]
+# binding = "DB"
+# database_name = "voting-app-db-production"
+# database_id = "YOUR_PRODUCTION_DATABASE_ID_HERE"
+
