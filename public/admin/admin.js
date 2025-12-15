@@ -4,11 +4,12 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const password = document.getElementById("password").value;
 
   try {
-    const res = await fetch("/login", {
+    const res = await fetch("https://voting-app-api.shigoto.workers.dev/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
+      credentials: "include", // Required for cross-origin cookies
       body: "password=" + encodeURIComponent(password),
     });
 
