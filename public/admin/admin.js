@@ -1,3 +1,6 @@
+// Clear session on load
+fetch("https://voting-app-api.shigoto.workers.dev/logout", { credentials: "include" });
+
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -23,4 +26,3 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     console.error(err);
   }
 });
-

@@ -2,6 +2,8 @@
 // Uses Cloudflare D1 (SQLite) and R2 (Storage)
 // This is the recommended approach for Cloudflare
 
+import bcrypt from 'bcryptjs';
+
 const PASSWORD_HASH = "$2b$10$/V9PVyVowqw9WlNjoLQXhOGH..bez.8QRSnSBmHgRHol3IAKOhUl.";
 
 // Helper function to parse cookies
@@ -177,16 +179,14 @@ async function handleLogin(request, env) {
   const formData = await request.formData();
   const password = formData.get('password') || '';
   
-  // Check password - if ADMIN_PASSWORD env var is set, use it directly
-  // Otherwise, we'll accept any non-empty password for now (you should set ADMIN_PASSWORD)
   let isValid = false;
   
   if (env.ADMIN_PASSWORD) {
     // Use environment variable if set
     isValid = (password === env.ADMIN_PASSWORD);
   } else {
-    // For now, accept any non-empty password (temporary - set ADMIN_PASSWORD properly!)
-    isValid = (password.length > 0);
+    // Use bcrypt to check against the hash
+    isValid = await bcrypt.compare(password, PASSWORD_HASH);
   }
   
   if (!isValid) {
@@ -458,4 +458,3 @@ async function handleResetVotes(request, env) {
   
   return new Response('Votes reset', { status: 200 });
 }
-

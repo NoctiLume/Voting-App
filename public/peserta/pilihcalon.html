@@ -70,35 +70,65 @@
       };
 
       async function konfirmasiPilihan() {
+
         const pilihanSementara = sessionStorage.getItem("pilihanSementara");
 
+
+
         if (pilihanSementara) {
+
           const calonId = "calon" + pilihanSementara;
 
+
+
           try {
-            const response = await fetch('/submitVote', {
+
+            const response = await fetch('https://voting-app-api.shigoto.workers.dev/submitVote', {
+
               method: 'POST',
+
               headers: {
+
                 'Content-Type': 'application/json',
+
               },
+
               body: JSON.stringify({ calonId: calonId }),
+
             });
 
+
+
             if (response.ok) {
+
               // Hapus pilihan sementara
+
               sessionStorage.removeItem("pilihanSementara");
+
               // Redirect ke terima kasih
+
               window.location.href = "terimakasih.html";
+
             } else {
+
               // Handle error
+
               alert("Gagal menyimpan pilihan. Silakan coba lagi.");
+
               console.error('Error submitting vote:', await response.text());
+
             }
+
           } catch (error) {
+
             alert("Terjadi kesalahan. Silakan periksa koneksi internet Anda.");
+
             console.error('Network error:', error);
+
           }
+
         }
+
       }
     </script>
   </body>

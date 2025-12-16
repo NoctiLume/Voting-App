@@ -132,50 +132,113 @@
     </div>
 
     <script>
+
       // Load data semua calon saat halaman dibuka
+
       window.onload = function () {
+
         loadCalonData("calon1", 1);
+
         loadCalonData("calon2", 2);
+
         loadCalonData("calon3", 3);
+
         loadCalonData("calon4", 4);
+
       };
 
-      function loadCalonData(calonId, number) {
-        const saved = localStorage.getItem(calonId);
-        if (saved) {
-          const data = JSON.parse(saved);
+
+
+      async function loadCalonData(calonId, number) {
+
+        try {
+
+          const response = await fetch(`https://voting-app-api.shigoto.workers.dev/getCandidate?id=${calonId}`);
+
+          if (!response.ok) return;
+
+
+
+          const data = await response.json();
+
+
 
           // Update nama
+
           if (data.nama) {
+
             document.getElementById("nama" + number).textContent = data.nama;
+
           }
+
+
 
           // Update visi misi
+
           if (data.visiMisi) {
+
             document.getElementById("visi" + number).innerHTML =
+
               "<strong>Visi & Misi:</strong><br>" + data.visiMisi;
+
           }
+
+
 
           // Update foto
-          if (data.foto) {
-            const photoDiv = document.getElementById("photo" + number);
-            photoDiv.innerHTML =
+
+          const photoDiv = document.getElementById("photo" + number);
+
+          if (data.photoData) {
+
+             photoDiv.innerHTML =
+
               '<img src="' +
-              data.foto +
+
+              data.photoData +
+
               '" alt="' +
+
               data.nama +
+
               '" style="width: 100%; height: 100%; object-fit: cover;">';
+
+          } else if (data.photoPath) {
+
+            // Fallback for older data or different storage method
+
+             // Note: You might need a way to serve this if it's just a path
+
+             // For now assuming it might be a public URL or similar if not base64
+
           }
+
+
+
+        } catch (error) {
+
+          console.error(`Error loading data for ${calonId}:`, error);
+
         }
+
       }
 
+
+
       // Fungsi untuk memilih calon
+
       function pilihCalon(nomorCalon) {
+
         // Simpan pilihan ke sessionStorage untuk konfirmasi
+
         sessionStorage.setItem("pilihanSementara", nomorCalon);
+
         // Redirect ke halaman konfirmasi
+
         window.location.href = "pilihcalon.html";
+
       }
+
     </script>
   </body>
 </html>

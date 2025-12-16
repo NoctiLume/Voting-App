@@ -3,6 +3,7 @@
 // Cloudflare Pages will automatically route /api/* requests here
 
 import { parseCookies, setCookie, isAdmin, initDatabase } from '../utils.js';
+import bcrypt from 'bcryptjs';
 
 export async function onRequest(context) {
   const { request, env, params } = context;
@@ -81,8 +82,14 @@ async function handleLogin(request, env) {
   
   const storedHash = env.ADMIN_PASSWORD_HASH || "$2b$10$/V9PVyVowqw9WlNjoLQXhOGH..bez.8QRSnSBmHgRHol3IAKOhUl.";
   
-  // Simple password check
-  if (password !== env.ADMIN_PASSWORD && password.length === 0) {
+  let isValid = false;
+  if (env.ADMIN_PASSWORD) {
+     isValid = (password === env.ADMIN_PASSWORD);
+  } else {
+     isValid = await bcrypt.compare(password, storedHash);
+  }
+
+  if (!isValid) {
     return new Response('SALAAAAH', { status: 401 });
   }
   
@@ -276,4 +283,3 @@ async function handleResetVotes(request, env) {
   
   return new Response('Votes reset', { status: 200 });
 }
-
