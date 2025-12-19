@@ -260,18 +260,6 @@ body {
   opacity: 0.7;
 }
 
-@keyframes glowing {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-
 .button:hover::before {
   opacity: 1;
 }
@@ -286,6 +274,84 @@ body {
 
 .button:active {
   color: rgb(81, 83, 193);
+  font-weight: bold;
+  transform: scale(0.95);
+}
+
+.buttonE .icon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.buttonE:hover .icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.buttonE::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  left: 0;
+  top: 0;
+  border-radius: 12px;
+}
+
+.buttonE::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    red,
+    rgb(201, 39, 39),
+    rgb(225, 66, 66),
+    rgb(234, 53, 4),
+    rgb(203, 35, 16),
+    rgb(183, 73, 73),
+    rgb(190, 6, 6),
+    red
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 12px;
+  opacity: 0.7;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.buttonE:hover::before {
+  opacity: 1;
+}
+
+.buttonE:hover::after {
+  background: transparent;
+}
+
+.buttonE:hover {
+  transform: scale(1.05);
+}
+
+.buttonE:active {
+  color: red;
   font-weight: bold;
   transform: scale(0.95);
 }
